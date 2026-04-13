@@ -7,5 +7,7 @@ __pycache__/
 venv/
 env/
 .streamlit/
+.env
 reports/
 data/prediction_history.csv
+backend/health_risk_dev.db

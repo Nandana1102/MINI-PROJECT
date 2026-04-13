@@ -1,0 +1,24 @@
+food_name,serving_size,estimated_calories,food_category,risk_flags,healthier_alternative
+apple,1 medium,95,fruit,"healthy,low_calorie,fiber",banana
+banana,1 medium,105,fruit,"healthy,natural_sugar,fiber",apple
+salad,1 bowl,90,healthy_meal,"healthy,low_calorie,fiber",apple
+idli,2 pieces,130,breakfast,"light,moderate_carb,fermented,south_indian",pongal
+dosa,1 plain dosa,180,breakfast,"moderate_carb,light_oil,south_indian",idli
+vada,1 piece,140,snack,"fried,south_indian",idli
+pongal,1 bowl,220,breakfast,"moderate_carb,soft,south_indian",idli
+upma,1 bowl,230,breakfast,"moderate_carb,south_indian",idli
+uttapam,1 piece,260,breakfast,"moderate_carb,light_oil,south_indian",dosa
+chapati,2 pieces,220,meal,"moderate_carb,balanced",salad
+rice,1 cup,210,meal,"moderate_carb,south_indian",chapati
+lemon rice,1 bowl,260,meal,"moderate_carb,south_indian",salad
+curd rice,1 bowl,230,meal,"moderate_carb,south_indian,light",salad
+sambar rice,1 bowl,280,meal,"moderate_calorie,south_indian",salad
+biryani,1 plate,420,meal,"high_calorie,oily,refined_carb,south_indian",salad
+sandwich,1 serving,250,snack,"moderate_calorie,processed",salad
+noodles,1 bowl,320,meal,"refined_carb,processed",chapati
+samosa,1 piece,260,snack,"fried,junk",salad
+pizza,2 slices,500,fast_food,"high_calorie,processed,junk",salad
+burger,1 burger,450,fast_food,"high_calorie,processed,junk",sandwich
+french fries,1 serving,365,snack,"fried,processed,junk",salad
+grilled chicken,100 g,220,protein,"protein_rich,moderate_calorie",salad
+ice cream,1 cup,275,dessert,"sugary,high_calorie,processed",apple

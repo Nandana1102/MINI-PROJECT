@@ -6,3 +6,5 @@ seaborn
 streamlit
 joblib
 reportlab
+requests
+Pillow

@@ -69,7 +69,15 @@ def estimate_daily_calories(age: int, gender: str, height_cm: float, weight_kg: 
     }
 
 
-def calorie_guidance_text(calorie_info: Dict[str, float | str]) -> str:
+def calorie_guidance_text(calorie_info: Dict[str, float | str], lang: str = "en") -> str:
+    if lang == "hi":
+        return (
+            f"अनुमानित BMR {calorie_info['bmr']} kcal/day है और अनुमानित मेंटेनेंस कैलोरी "
+            f"{calorie_info['maintenance_calories']} kcal/day है। धीरे-धीरे वज़न घटाने के लिए लगभग "
+            f"{calorie_info['weight_loss_target']} kcal/day का लक्ष्य रखा जा सकता है; और धीरे-धीरे वज़न बढ़ाने के लिए लगभग "
+            f"{calorie_info['weight_gain_target']} kcal/day पर विचार किया जा सकता है।"
+        )
+
     return (
         f"Estimated BMR is {calorie_info['bmr']} kcal/day and estimated maintenance calories are "
         f"{calorie_info['maintenance_calories']} kcal/day. For gradual weight loss, a target around "

@@ -22,6 +22,9 @@ A mini-project for CSE students that predicts **Low / Moderate / High** health r
 - **User history tracking** with saved predictions and trend charts
 - **What-If Risk Simulation** for improvement analysis
 - **PDF + Text report generation**
+- **English + Hindi multilingual interface** with Hindi health guidance
+- **Persistent language preference** for authenticated backend users
+- **Check It and Eat It**: upload a food image, estimate approximate calories, and get an eat / avoid suggestion
 - Streamlit dashboard
 
 ## Additional Contextual Inputs Added
@@ -53,11 +56,14 @@ health_risk_project/
     │-- alerts.py
     │-- data_generation.py
     │-- features.py
+    │-- food_calorie_db.py
+    │-- food_checker.py
     │-- history.py
     │-- modeling.py
     │-- pdf_reporting.py
     │-- recommendations.py
     │-- reporting.py
+    │-- translations.py
     │-- utils.py
     │-- wellness_tools.py
 ```
@@ -84,14 +90,15 @@ streamlit run app.py
 ```
 
 ## How to Use the App
-1. Select a prediction model from the sidebar.
-2. Choose whether to:
+1. Select a language from the sidebar.
+2. Select a prediction model from the sidebar.
+3. Choose whether to:
    - manually enter Diet Score, or
    - calculate Diet Score from food habits.
-3. Choose whether to:
+4. Choose whether to:
    - manually enter BMI, or
    - calculate BMI from height and weight.
-4. Enter additional contextual values:
+5. Enter additional contextual values:
    - age
    - gender
    - blood pressure
@@ -99,8 +106,8 @@ streamlit run app.py
    - smoking habit
    - screen time
    - stress level
-5. Click **Predict Health Risk**.
-6. View:
+6. Click **Predict Health Risk**.
+7. View:
    - HRS score
    - predicted risk category
    - BMI category
@@ -114,7 +121,7 @@ streamlit run app.py
    - model comparison chart
    - confusion matrices
    - feature importance chart
-7. Download the report as **PDF** or **TXT**.
+8. Download the report as **PDF** or **TXT**.
 
 ## HRS Formula
 The engineered Health Risk Score is computed as:

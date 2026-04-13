@@ -25,6 +25,7 @@ A mini-project for CSE students that predicts **Low / Moderate / High** health r
 - **English + Hindi multilingual interface** with Hindi health guidance
 - **Persistent language preference** for authenticated backend users
 - **Check It and Eat It**: upload a food image, estimate approximate calories, and get an eat / avoid suggestion
+- **Period Cycle Detection Phase**: estimate approximate menstrual, follicular, ovulation, and luteal phase dates with body-change guidance
 - Streamlit dashboard
 
 ## Additional Contextual Inputs Added
@@ -61,6 +62,7 @@ health_risk_project/
     │-- history.py
     │-- modeling.py
     │-- pdf_reporting.py
+    │-- period_cycle.py
     │-- recommendations.py
     │-- reporting.py
     │-- translations.py

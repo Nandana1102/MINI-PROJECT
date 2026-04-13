@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import date, timedelta
 from typing import Any, Dict, List
 
 import pandas as pd
@@ -40,6 +41,7 @@ from src.modeling import (
     train_and_save,
 )
 from src.pdf_reporting import build_pdf_report_bytes
+from src.period_cycle import predict_cycle_phases
 from src.recommendations import generate_explainability_text, generate_recommendations
 from src.reporting import build_text_report
 from src.translations import (
@@ -632,6 +634,85 @@ def render_food_checker_section(current_values: Dict[str, float], current_contex
     st.caption(food_result["disclaimer"])
 
 
+def render_period_cycle_section(lang: str) -> None:
+    st.markdown("---")
+    st.subheader(f"🌸 {t('period_cycle_title', lang)}")
+    st.markdown(t("period_cycle_intro", lang))
+    st.caption(t("period_cycle_note", lang))
+
+    input_cols = st.columns(3)
+    with input_cols[0]:
+        last_period_start = st.date_input(
+            t("period_last_start_date", lang),
+            value=date.today() - timedelta(days=14),
+            max_value=date.today(),
+            key="period_last_start_date",
+        )
+    with input_cols[1]:
+        average_cycle_length = st.slider(
+            t("period_avg_cycle_length", lang),
+            min_value=21,
+            max_value=40,
+            value=28,
+            key="period_avg_cycle_length",
+        )
+    with input_cols[2]:
+        period_length = st.slider(
+            t("period_length", lang),
+            min_value=2,
+            max_value=10,
+            value=5,
+            key="period_length",
+        )
+
+    cycle_result = predict_cycle_phases(
+        last_period_start=last_period_start,
+        cycle_length=int(average_cycle_length),
+        period_length=int(period_length),
+        current_date=date.today(),
+        lang=lang,
+    )
+
+    current_phase = cycle_result["current_phase"]
+    metric_cols = st.columns(4)
+    metric_cols[0].metric(t("period_current_phase", lang), current_phase["display_name"])
+    metric_cols[1].metric(t("period_cycle_day", lang), str(cycle_result["cycle_day"]))
+    metric_cols[2].metric(t("period_next_period", lang), str(cycle_result["next_expected_period"]))
+    metric_cols[3].metric(t("period_days_until_next", lang), str(cycle_result["days_until_next_period"]))
+
+    st.info(
+        t(
+            "period_cycle_span",
+            lang,
+            start=cycle_result["current_cycle_start"],
+            end=cycle_result["current_cycle_end"],
+        )
+    )
+
+    current_phase_cols = st.columns([1.1, 1])
+    with current_phase_cols[0]:
+        st.markdown(f"**{t('period_body_changes', lang)} — {current_phase['display_name']}**")
+        for item in current_phase["body_changes"]:
+            st.write(f"- {item}")
+    with current_phase_cols[1]:
+        st.markdown(f"**{t('period_precautions', lang)} — {current_phase['display_name']}**")
+        for item in current_phase["precautions"]:
+            st.write(f"- {item}")
+
+    st.markdown(f"**{t('period_phase_calendar', lang)}**")
+    for phase in cycle_result["phases"]:
+        phase_title = f"{phase['display_name']} ({phase['start_date']} → {phase['end_date']})"
+        with st.expander(phase_title, expanded=phase["key"] == current_phase["key"]):
+            st.markdown(f"**{t('period_body_changes', lang)}**")
+            for item in phase["body_changes"]:
+                st.write(f"- {item}")
+            st.markdown(f"**{t('period_precautions', lang)}**")
+            for item in phase["precautions"]:
+                st.write(f"- {item}")
+
+    st.warning(t("period_disclaimer", lang))
+
+
 inject_custom_css()
 init_session_state()
 bundle = get_model_bundle()
@@ -1221,6 +1302,7 @@ else:
         "blood_sugar": advanced_values.get("blood_sugar") if include_advanced else None,
     }
 render_food_checker_section(current_food_values, current_food_context, latest_predicted_risk, lang)
+render_period_cycle_section(lang)
 
 st.markdown("---")
 st.subheader(t("dataset_preview", lang))
